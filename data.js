@@ -1,7 +1,6 @@
 import Category from './models/category';
 import Meal from './models/meal';
 
-
 export const CATEGORIES = [
   new Category('c1', 'Italian', '#f5428d', '#fcc3db'),
   new Category('c2', 'Quick & Easy', '#f54242', '#fcc3c3'),
@@ -15,6 +14,37 @@ export const CATEGORIES = [
   new Category('c10', 'Summer', '#47fced', '#cdfefa')
 ];
 
+let favorites = [];
+
+export function getfavorites() {
+  return favorites;
+}
+
+export function toggleFavorite(meal) {
+  const exist = favorites.find(item => item.id === meal.id) !== undefined;
+
+  if (exist) {
+    console.log('will remove favorite');
+    return removeFavorite(meal);
+  }
+
+  console.log('will add favorite');
+  addFavorite(meal);
+}
+
+function addFavorite(meal) {
+  favorites = [...favorites, meal];
+}
+
+function removeFavorite(meal) {
+  const index = favorites.indexOf(meal);
+  console.log("TCL: removeFavorite -> before favorites", favorites.length)
+  console.log("TCL: removeFavorite -> index", index)
+  
+  favorites = favorites.filter(item => item.id !== meal.id);
+  console.log("TCL: removeFavorite -> after favorites", favorites.length)
+  
+}
 
 export const MEALS = [
   new Meal(

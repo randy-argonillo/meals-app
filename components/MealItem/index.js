@@ -1,24 +1,31 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, TouchableOpacity, StyleSheet } from 'react-native';
 
 import MealHeader from './MealHeader';
 import MealFooter from './MealFooter';
 import MealBody from './MealBody';
 
-export default function MealItem({ meal }) {
+export default function MealItem({ meal, onSelect }) {
   return (
-    <View style={{paddingHorizontal: 2}}>
+    <View style={{ paddingHorizontal: 2 }}>
       <View style={styles.container}>
         <MealHeader
           title={meal.title}
           image={meal.imageUrl}
           style={{ height: '15%' }}
         />
-        <MealBody mealImage={meal.imageUrl} style={{ height: '70%' }} />
+        <TouchableOpacity style={{ height: '70%' }} onPress={onSelect}>
+          <MealBody mealImage={meal.imageUrl} />
+        </TouchableOpacity>
         <MealFooter meal={meal} style={{ height: '20%' }} />
       </View>
     </View>
   );
+}
+
+MealItem.defaultProps = {
+  meal: {},
+  onSelect: () => {}
 }
 
 const styles = StyleSheet.create({

@@ -3,6 +3,7 @@ import { FlatList, StyleSheet } from 'react-native';
 
 import { CATEGORIES } from '../data';
 import CategoryGridTile from '../components/CategoryGridTitle';
+import Drawer from '../components/Drawer';
 
 const renderCategory = props => category => {
   return (
@@ -33,6 +34,12 @@ export default function MealCategoriesScreen(props) {
   );
 }
 
-MealCategoriesScreen.navigationOptions = {
-  headerTitle: 'Meal Categories'
+MealCategoriesScreen.navigationOptions = options => {
+  const { navigation } = options;
+  console.log("TCL: navigation", navigation)
+  
+  return {
+    headerTitle: 'Meal Categories',
+    headerLeft: <Drawer navigation={navigation} />
+  };
 };

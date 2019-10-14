@@ -1,10 +1,9 @@
 import React from 'react';
 import { View, Text, FlatList, StyleSheet } from 'react-native';
 
+import MealList from '../components/MealList';
 import { CATEGORIES, MEALS } from '../data';
-import MealItem from '../components/MealItem';
 
-const renderMealItem = data => <MealItem meal={data.item} />;
 
 export default function MealsListScreen(props) {
   const categoryId = props.navigation.getParam('categoryId');
@@ -12,11 +11,7 @@ export default function MealsListScreen(props) {
 
   return (
     <View style={styles.container}>
-      <FlatList
-        data={meals}
-        keyExtractor={item => item.id}
-        renderItem={renderMealItem}
-      />
+      <MealList meals={meals} navigation={props.navigation} />  
     </View>
   );
 }

@@ -36,7 +36,6 @@ export default function MealCategoriesScreen(props) {
 
 MealCategoriesScreen.navigationOptions = options => {
   const { navigation } = options;
-  console.log("TCL: navigation", navigation)
   
   return {
     headerTitle: 'Meal Categories',

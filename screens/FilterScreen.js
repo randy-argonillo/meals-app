@@ -1,11 +1,14 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
+
+import Filters from '../components/Filters';
 import Drawer from '../components/Drawer';
 
 export default function FilterScreen(props) {
   return (
-    <View>
-      <Text>Filter Screen</Text>
+    <View style={styles.container}>
+      <Text style={styles.title}>Available Filters</Text>
+      <Filters />
     </View>
   );
 }
@@ -17,3 +20,16 @@ FilterScreen.navigationOptions = options => {
     headerLeft: <Drawer navigation={navigation} />
   };
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 12
+  },
+  title: {
+    fontWeight: 'bold',
+    fontSize: 18,
+    width: '100%',
+    textAlign: 'center'
+  }
+});

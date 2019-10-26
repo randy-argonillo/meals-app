@@ -1,15 +1,31 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
+import { useDispatch } from 'react-redux';
 
 import Filter from './Filter';
+import { setFilter } from '../../store/meals/filterSlice';
 
 export default function Filters() {
+  const dispatch = useDispatch();
+
   return (
     <View style={styles.container}>
-      <Filter title="Gluten Free" />
-      <Filter title="Vegan" />
-      <Filter title="Vegetarian" />
-      <Filter title="Lactose Free" />
+      <Filter
+        title="Gluten Free"
+        onChange={value => dispatch(setFilter({ isGlutenFree: value }))}
+      />
+      <Filter
+        title="Vegan"
+        onChange={value => dispatch(setFilter({ isVegan: value }))}
+      />
+      <Filter
+        title="Vegetarian"
+        onChange={value => dispatch(setFilter({ isVegetarian: value }))}
+      />
+      <Filter
+        title="Lactose Free"
+        onChange={value => dispatch(setFilter({ isLactoseFree: value }))}
+      />
     </View>
   );
 }

@@ -1,18 +1,14 @@
 import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { useFocusEffect } from 'react-navigation-hooks';
+import { useSelector } from 'react-redux';
 
 import MealList from '../components/MealList';
-import { getfavorites } from '../data';
 import Drawer from '../components/Drawer';
+import { selectFavoriteMeals } from '../store/meals/mealsSelector';
 
 export default function FavoritesScreen(props) {
-  const [favorites, setFavorites] = useState([]);
-
-  useFocusEffect(() => {
-    console.log('FavoritesScreen useEffect');
-    setFavorites(getfavorites());
-  });
+  const favorites = useSelector(selectFavoriteMeals);
 
   return (
     <View style={styles.container}>

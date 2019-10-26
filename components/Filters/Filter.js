@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Switch, View, Text, StyleSheet } from 'react-native';
 
-export default function Filter({ title }) {
+export default function Filter({ title, onChange }) {
   const [filterSwitch, setFilterSwitch] = useState(false);
 
   return (
@@ -9,7 +9,10 @@ export default function Filter({ title }) {
       <Text>{title}</Text>
       <Switch
         value={filterSwitch}
-        onValueChange={val => setFilterSwitch(val)}
+        onValueChange={val => {
+          setFilterSwitch(val);
+          onChange(val);
+        }}
         trackColor={{
           true: 'tomato',
           false: '#ffa494'

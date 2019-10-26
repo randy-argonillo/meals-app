@@ -24,11 +24,9 @@ export function toggleFavorite(meal) {
   const exist = favorites.find(item => item.id === meal.id) !== undefined;
 
   if (exist) {
-    console.log('will remove favorite');
     return removeFavorite(meal);
   }
 
-  console.log('will add favorite');
   addFavorite(meal);
 }
 
@@ -38,12 +36,8 @@ function addFavorite(meal) {
 
 function removeFavorite(meal) {
   const index = favorites.indexOf(meal);
-  console.log("TCL: removeFavorite -> before favorites", favorites.length)
-  console.log("TCL: removeFavorite -> index", index)
-  
+
   favorites = favorites.filter(item => item.id !== meal.id);
-  console.log("TCL: removeFavorite -> after favorites", favorites.length)
-  
 }
 
 export const MEALS = [

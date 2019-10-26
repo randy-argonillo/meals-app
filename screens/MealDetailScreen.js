@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { View, Text } from 'react-native';
 import {
   HeaderButtons,
@@ -7,6 +8,8 @@ import {
 } from 'react-navigation-header-buttons';
 import { Ionicons } from '@expo/vector-icons';
 
+import { toggleFavoriteMealById } from '../store/meals/mealsSlice';
+import { isFavoriteMeal } from '../store/meals/mealsSelector';
 import { MEALS, toggleFavorite, getfavorites } from '../data';
 
 const IoniconHeaderButton = props => (
@@ -19,6 +22,28 @@ const IoniconHeaderButton = props => (
 );
 
 export default function MealDetailScreen(props) {
+  const dispatch = useDispatch();
+  const { navigation } = props;
+  const meal = navigation.getParam('meal');
+
+  const isFavorite = useSelector(isFavoriteMeal(meal));
+
+  const toggleFavoriteMeal = () => {
+    console.log('will dispatch');
+    dispatch(toggleFavoriteMealById(meal.id));
+  };
+
+  useEffect(() => {
+    navigation.setParams({
+      toggleFavoriteMeal
+    });
+  }, [meal.id]);
+
+  useEffect(() => {
+    console.log('isFavorite', isFavorite);
+    navigation.setParams({ isFavorite });
+  }, [isFavorite]);
+
   return (
     <View>
       <Text>Meal Detail Screen</Text>
@@ -28,10 +53,9 @@ export default function MealDetailScreen(props) {
 
 MealDetailScreen.navigationOptions = data => {
   const { navigation } = data;
-  const meal = getMealFromNav(navigation);
-  const isFavoriteParam = navigation.getParam('isFavorite');
-  const isFavorite =
-    isFavoriteParam === undefined ? checkIsFavorite(meal) : isFavoriteParam;
+  const meal = navigation.getParam('meal');
+  const isFavorite = navigation.getParam('isFavorite');
+  const toggleFavoriteMeal = navigation.getParam('toggleFavoriteMeal');
 
   return {
     headerTitle: meal.title,
@@ -41,11 +65,7 @@ MealDetailScreen.navigationOptions = data => {
           title="star"
           iconName="ios-star"
           onPress={() => {
-            toggleFavorite(meal);
-
-            navigation.setParams({
-              isFavorite: !isFavorite
-            });
+            toggleFavoriteMeal(meal.id);
           }}
           buttonStyle={{
             color: isFavorite ? '#f9ca24' : 'white'
